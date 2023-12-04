@@ -9,7 +9,7 @@ router = routers.DefaultRouter()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('fotonsite.urls')),
+    path('api/', include('fotonsite.urls')),
 
     #authentification
     path('api/', include('authentication.urls')),
