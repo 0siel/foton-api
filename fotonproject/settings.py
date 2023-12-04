@@ -35,6 +35,9 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+#cuztom user model
+AUTH_USER_MODEL = 'authentication.CustomUser'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,19 +45,28 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #external apps
+    'corsheaders', #corsheaders
     'rest_framework',
+    'django_rest_passwordreset',
+    #local apps
     'fotonsite',
+    'authentication',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware', #corsheaders
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_WHITELIST=["http://localhost:3000"] #corsheaders
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'fotonproject.urls'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
