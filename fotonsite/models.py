@@ -5,7 +5,7 @@ from django.conf import settings
 class Post(models.Model):
     title = models.CharField(max_length=100)
     #content = models.TextField()
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posts')
     date_posted = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='likes', blank=True, through='PostLike')
