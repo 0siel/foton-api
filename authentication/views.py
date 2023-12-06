@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import UserSerializer
+from fotonsite.serializers import UserSerializer, UserProfileSerializer
 from django.shortcuts import redirect
 
 from django.dispatch import receiver
@@ -51,7 +51,7 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
         f"También puedes hacerlo directamente desde el cliente web en http://localhost:3000/new-password/?token={reset_password_token.key}.\n")
 
 class ProfileView(generics.RetrieveUpdateAPIView):
-  serializer_class = UserSerializer
+  serializer_class = UserProfileSerializer
   http_method_names = ['get', 'patch']
 
   def get_object(self):

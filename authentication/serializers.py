@@ -1,7 +1,8 @@
-from rest_framework import serializers
-from django.contrib.auth import get_user_model
-from django.contrib.auth.hashers import make_password
-
+#from rest_framework import serializers
+#from django.contrib.auth import get_user_model
+#from django.contrib.auth.hashers import make_password
+#from fotonsite.serializers import UserPostSerializer
+"""
 class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
        required=True)
@@ -14,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('email', 'username', 'password', 'profile_picture' )
+        fields = ('id','email', 'username', 'password', 'profile_picture' )
 
     def validate_password(self, value):
         return make_password(value)
@@ -40,3 +41,10 @@ class UserSerializer(serializers.ModelSerializer):
             return value
         raise serializers.ValidationError("El email ya está en uso")
 
+class UserProfileSerializer(serializers.ModelSerializer):
+    posts = UserPostSerializer(many=True, read_only=True)
+    class Meta:
+        model = get_user_model()
+        fields = ('email', 'username', 'profile_picture', 'id', 'posts')
+
+"""
