@@ -2,9 +2,10 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
-from .models import Post
+from .models import Post, Like
 from .serializers import PostSerializer
 from rest_framework.exceptions import PermissionDenied
+from rest_framework.pagination import PageNumberPagination
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -13,16 +14,20 @@ def like_post(request, post_id):
         post = Post.objects.get(id=post_id)
     except Post.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    if request.user in post.likes.all():
-        post.likes.remove(request.user)
+
+    like = Like.objects.filter(user=request.user, post=post).first()
+    if like:
+        like.delete()
     else: 
-        post.likes.add(request.user)
+        Like.objects.create(user=request.user, post=post)
+
     return Response(status=status.HTTP_204_NO_CONTENT)
 
 class PostListCreateView(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated]
+    pagination_class = PageNumberPagination
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -31,6 +36,7 @@ class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated]
+
 
     def get_object(self):
         obj = super().get_object()

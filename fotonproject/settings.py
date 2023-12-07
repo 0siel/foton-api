@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #external apps
     'corsheaders', #corsheaders
-    'rest_framework',
+    'rest_framework', #django rest framework
     'rest_framework.authtoken',
     'django_rest_passwordreset',
     #local apps
@@ -68,10 +68,12 @@ MIDDLEWARE = [
 ]
 
 REST_FRAMEWORK={
-    
+  #Pagination
+  'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+  'PAGE_SIZE': 10,   
 }
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True #Configuración de corsheaders
 CORS_ALLOW_CREDENTIALS = True
 
 
@@ -104,6 +106,7 @@ WSGI_APPLICATION = 'fotonproject.wsgi.application'
 #Secret key
 SECRET_KEY = env('SECRET_KEY')
 
+#Configuración de la base de datos en PostgreSQL
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',

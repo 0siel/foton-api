@@ -2,24 +2,22 @@ from django.db import models
 from django.conf import settings
 
 # Create your models here.
-class Post(models.Model):
+class Post(models.Model): #Modelo de la tabla Post
     title = models.CharField(max_length=100)
-    #content = models.TextField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posts')
     date_posted = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='images/', blank=True, null=True)
-    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='likes', blank=True, through='PostLike')
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='post_likes', blank=True, through='Like')#Relación muchos a muchos con el modelo User para los likes
     
 
     def __str__(self):
         return self.title
    
 
-class PostLike(models.Model):
+class Like(models.Model): #Modelo de la tabla Like
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_likes')
     timestamp = models.DateTimeField(auto_now_add=True)
-    class Meta:
-        unique_together = ('user', 'post')
+
     def __str__(self):
-        return '%s likes %s' % (self.user.username, self.post.title)
+        return f'{self.user.username} likes {self.post.title}'

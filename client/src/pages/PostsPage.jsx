@@ -24,7 +24,7 @@ function PostsPage() {
         <Navigation />
       </div>
       <h1>Posts Page</h1>
-      <button onClick={fetchPosts}>Fetch Posts</button>
+      <p></p>
     </div>
   );
 }
