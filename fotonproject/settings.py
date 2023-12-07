@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     #external apps
     'corsheaders', #corsheaders
     'rest_framework',
+    'rest_framework.authtoken',
     'django_rest_passwordreset',
     #local apps
     'fotonsite',
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware', #corsheaders
+    'django.middleware.csrf.CsrfViewMiddleware', #corsheaders
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -65,8 +67,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_WHITELIST=["http://localhost:3000"] #corsheaders
+REST_FRAMEWORK={
+    
+}
+
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
+
 
 ROOT_URLCONF = 'fotonproject.urls'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

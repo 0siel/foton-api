@@ -3,10 +3,11 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from fotonsite.serializers import UserSerializer, UserProfileSerializer
-from django.shortcuts import redirect
 
 from django.dispatch import receiver
 from django_rest_passwordreset.signals import reset_password_token_created
+from rest_framework.authtoken.models import Token
+from django.http import JsonResponse
 
 class LoginView(APIView):
   def post(self, request):
@@ -15,9 +16,11 @@ class LoginView(APIView):
     user = authenticate(email=email, password=password)
     if user:
       login(request, user)
-      return Response(UserSerializer(user).data,status=status.HTTP_200_OK)
-      
-    
+      token, _ = Token.objects.get_or_create(user=user)
+      response = Response(UserSerializer(user).data, status=status.HTTP_200_OK)
+      response.set_cookie(key='auth_token', value=token.key, httponly=True)
+      return response
+
     return Response(status=status.HTTP_401_UNAUTHORIZED)
   
 class LogoutView(APIView):
