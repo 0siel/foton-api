@@ -59,5 +59,11 @@ class ProfileView(generics.RetrieveUpdateAPIView):
 
   def get_object(self):
     return self.request.user
-  
+
+class UpdateProfileView(generics.UpdateAPIView):
+  serializer_class = UserProfileSerializer
+  http_method_names = ['patch']
+
+  def get_object(self):
+    return self.request.user 
   

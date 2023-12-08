@@ -8,6 +8,8 @@ class Post(models.Model): #Modelo de la tabla Post
     date_posted = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='post_likes', blank=True, through='Like')#Relación muchos a muchos con el modelo User para los likes
+
+    REQUIRED_FIELDS = ['title', 'image']
     
 
     def __str__(self):
