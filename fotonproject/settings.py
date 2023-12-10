@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     #external apps
     'corsheaders', #corsheaders
     'rest_framework', #django rest framework
-    'rest_framework.authtoken',
+    'rest_framework.authtoken', 
     'django_rest_passwordreset',
     #local apps
     'fotonsite',
@@ -57,24 +57,36 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware', #corsheaders
-    'django.middleware.csrf.CsrfViewMiddleware', #corsheaders
+    
+     #corsheaders
+     #corsheaders
+    'django.middleware.csrf.CsrfViewMiddleware',
+     #corsheaders 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     #TokenAuthMiddleware
 ]
 
 REST_FRAMEWORK={
+  'DEFAULT_AUTHENTICATION_CLASSES': (
+    'rest_framework.authentication.TokenAuthentication',
+  ),
+  
   #Pagination
   'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
   'PAGE_SIZE': 10,   
 }
 
-CORS_ALLOW_ALL_ORIGINS = True #Configuración de corsheaders
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+] #Configuración de corsheaders
+CORS_ALLOW_CREDENTIALS = True #Configuración de corsheaders
+
 
 
 ROOT_URLCONF = 'fotonproject.urls'
@@ -137,7 +149,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -155,7 +166,5 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

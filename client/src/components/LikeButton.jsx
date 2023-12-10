@@ -23,4 +23,12 @@ function LikeButton({ post }) {
   );
 }
 
+LikeButton.propTypes = {
+  post: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    user_has_liked: PropTypes.bool.isRequired,
+    likes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }).isRequired,
+};
+
 export { LikeButton };

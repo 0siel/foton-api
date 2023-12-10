@@ -24,13 +24,20 @@ def like_post(request, post_id):
     return Response(status=status.HTTP_204_NO_CONTENT)
 
 class PostListCreateView(generics.ListCreateAPIView):
-    queryset = Post.objects.all()
+    
+    queryset = Post.objects.all().order_by('-date_posted')
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated]
     pagination_class = PageNumberPagination
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+#View that returns the top 10 most liked posts  
+class TopPostsView(generics.ListAPIView):
+    queryset = Post.objects.all().order_by('-likes')[:10]
+    serializer_class = PostSerializer
+    permission_classes = [IsAuthenticated]
 
 class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()

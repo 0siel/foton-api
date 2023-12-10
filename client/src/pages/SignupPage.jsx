@@ -1,14 +1,10 @@
-import { useState, useEffect, useCallback } from "react";
-import { Header } from "../components/Header";
-import { Navigation } from "../components/NavigationBar";
-import { Post } from "../components/Post";
 import axios from "axios";
+import { useCallback, useEffect, useState } from "react";
 
 function PostsPage() {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(2);
   const [loading, setLoading] = useState(false);
-  const token = localStorage.getItem("token");
 
   const api = axios.create({
     baseURL: "http://localhost:8000/api",
@@ -23,13 +19,9 @@ function PostsPage() {
       const response = await axios.get(
         `http://localhost:8000/api/posts/?page=${page}`,
         {
-          headers: {
-            Authorization: `Token ${token}`,
-          },
           withCredentials: true,
         }
       );
-      console.log(response);
 
       setPosts((prevPosts) => [...prevPosts, ...response.data.results]);
       setPage((prevPage) => prevPage + 1);
@@ -45,12 +37,7 @@ function PostsPage() {
       try {
         const response = await axios.get(
           "http://localhost:8000/api/posts/?page=1",
-          {
-            headers: {
-              Authorization: `Token ${token}`,
-            },
-            withCredentials: true,
-          }
+          { withCredentials: true }
         );
         setPosts(response.data.results);
       } catch (error) {
@@ -72,29 +59,17 @@ function PostsPage() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [fetchPosts]);
 
   return (
     <div>
       <Header />
-      <div className="content">
-        <Navigation />
-
-        <div className="posts-container">
-          <h2>Inicio</h2>
-          <div>
-            {posts.map((post) => (
-              <Post key={post.id} post={post} />
-            ))}
-          </div>
-          {loading && <p>Loading...</p>}
-        </div>
-      </div>
+      <Navigation />
+      <h1>Posts</h1>
+      {posts.map((post) => (
+        <Post key={post.id} post={post} />
+      ))}
     </div>
   );
 }
-
-export { PostsPage };

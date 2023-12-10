@@ -2,7 +2,7 @@ from rest_framework import serializers
 #from authentication.serializers import UserSerializer
 
 ######################
-from .models import Post
+from .models import Post, Like
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 
@@ -54,7 +54,7 @@ class PostSerializer(serializers.ModelSerializer):
 
   def get_user_has_liked(self, obj):
     request = self.context.get('request')
-    if request is None or not request.user.is_authenticated:
+    if request is None:
       return False
     return obj.likes.filter(id=request.user.id).exists()
 
@@ -72,3 +72,4 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ('email', 'username', 'profile_picture', 'id', 'posts')
+

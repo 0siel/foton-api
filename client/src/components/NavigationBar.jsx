@@ -2,13 +2,24 @@ import { Link } from "react-router-dom";
 
 export function Navigation() {
   return (
-    <nav>
+    <nav className="NavBar">
       <ul>
-        <li className="NavigatioItem">
-          <Link to="/posts">Posts</Link>
+        <li className="NavigationItem">
+          <Link to="/foton/posts">
+            <div className="home-icon">
+              <img src="\src\assets\home.png" alt="icon img" />
+            </div>
+            <p>Inicio</p>
+          </Link>
         </li>
-        <li>
-          <Link to="/fotos-del-dia">Fotos del día</Link>
+
+        <li className="NavigationItem">
+          <Link to="/foton/fotos-del-dia">
+            <div className="home-icon">
+              <img src="\src\assets\gallery-icon.png" alt="icon img" />
+            </div>
+            <p>Fotos del día</p>
+          </Link>
         </li>
       </ul>
     </nav>

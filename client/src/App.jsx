@@ -7,10 +7,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/foton/" element={<Navigate to="/posts" />} />
+        <Route path="/foton" element={<Navigate to="/foton/posts" />} />
         <Route path="/foton/login" element={<LoginPage />} />
         <Route path="/foton/posts" element={<PostsPage />} />
-        <Route path="/foton/fotos-del-dia" elementt={<TopPostsPage />} />
+        <Route path="/foton/fotos-del-dia" element={<TopPostsPage />} />
       </Routes>
     </BrowserRouter>
   );

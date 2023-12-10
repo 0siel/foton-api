@@ -12,13 +12,16 @@ from django.http import JsonResponse
 class LoginView(APIView):
   def post(self, request):
     email = request.data.get('email', None)
+    # Authenticating user
     password = request.data.get('password', None)
     user = authenticate(email=email, password=password)
     if user:
       login(request, user)
-      token, _ = Token.objects.get_or_create(user=user)
-      response = Response(UserSerializer(user).data, status=status.HTTP_200_OK)
-      response.set_cookie(key='auth_token', value=token.key, httponly=True)
+
+      token, created = Token.objects.get_or_create(user=user)
+      response = Response(UserSerializer(user).data, status=status.HTTP_200_OK, )
+      # Add token to response
+      response.data['token'] = token.key
       return response
 
     return Response(status=status.HTTP_401_UNAUTHORIZED)
