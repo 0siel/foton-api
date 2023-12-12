@@ -10,6 +10,10 @@ function PostsPage() {
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("token");
 
+  if (!token) {
+    window.location.href = "/foton/login";
+  }
+
   const api = axios.create({
     baseURL: "http://localhost:8000/api",
     withCredentials: true,

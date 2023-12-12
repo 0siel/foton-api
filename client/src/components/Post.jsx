@@ -12,11 +12,13 @@ function Post({ post }) {
   const [isLiked, setIsLiked] = useState(user_has_liked);
   const [likes, setLikes] = useState(cantidadLikes);
   const token = localStorage.getItem("token");
+  const postId = post.id;
 
   const sendLike = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/posts/${post.id}/like/`,
+        `http://localhost:8000/api/posts/${postId}/like/`,
+        {},
         {
           headers: {
             Authorization: `Token ${token}`,
@@ -40,13 +42,16 @@ function Post({ post }) {
     setLikes((prevLikes) => prevLikes + 1);
   };
 
-  const date = format(new Date(post.date_posted), "dd MMM");
+  //const date = format(new Date(post.date_posted), "dd MMM");
+  const date = format(new Date(post.date_posted), "dd MMM, hh:mm a");
 
   return (
     <div className="post">
       <img src={post.image} alt="" />
       <p>{post.user.username}</p>
-      <p>{post.title}</p>
+      <p>
+        <b>{post.title}</b>
+      </p>
       <p>{date}</p>
       <div className="like-section">
         <button onClick={handleLike}>

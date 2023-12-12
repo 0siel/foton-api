@@ -6,6 +6,7 @@ from .models import Post, Like
 from .serializers import PostSerializer
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.views import APIView
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -22,7 +23,7 @@ def like_post(request, post_id):
         Like.objects.create(user=request.user, post=post)
 
     return Response(status=status.HTTP_204_NO_CONTENT)
-
+# View para listar y crear posts
 class PostListCreateView(generics.ListCreateAPIView):
     
     queryset = Post.objects.all().order_by('-date_posted')
@@ -34,10 +35,12 @@ class PostListCreateView(generics.ListCreateAPIView):
         serializer.save(user=self.request.user)
 
 #View that returns the top 10 most liked posts  
-class TopPostsView(generics.ListAPIView):
-    queryset = Post.objects.all().order_by('-likes')[:10]
-    serializer_class = PostSerializer
-    permission_classes = [IsAuthenticated]
+class TopPostsView(APIView):
+    def get(self, request, format=None):
+        posts = Post.get_top_posts_today()
+        serializer = PostSerializer(posts, many=True ,context={'request': request})
+        return Response(serializer.data)
+    
 
 class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()

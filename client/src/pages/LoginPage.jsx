@@ -5,9 +5,12 @@ function LoginPage() {
   const [message, setMessage] = useState("Ingresa tu usuario y contraseña"); // [1
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState(false); // 2
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoginError(false);
+    setMessage("Iniciando sesión...");
 
     try {
       const response = await axios.post(
@@ -33,6 +36,7 @@ function LoginPage() {
       if (error.response && error.response.status === 401) {
         // Handle 401 error here
         setMessage("Usuario o contraseña incorrectos");
+        setLoginError(true);
       } else {
         // Handle other errors
         console.error(error);
@@ -41,32 +45,46 @@ function LoginPage() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <p>{message}</p>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email:
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <button type="submit">Login</button>
-      </form>
+    <div className="login-page">
+      <div className="content">
+        <div className="login-logo">
+          <img src="\src\assets\foton-logorbg.png" alt="logo" />
+        </div>
+        <h1>Inicia sesión</h1>
+        <p>
+          {loginError ? (
+            <div className="error-message">{message}</div>
+          ) : (
+            message
+          )}
+        </p>
+        <form onSubmit={handleSubmit} className="login-form">
+          <label>
+            Correo:
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
+
+          <label>
+            Contraseña:
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+
+          <button type="submit">Login</button>
+        </form>
+        <div className="sign-up-link">
+          <a href="/foton/signup">¿No tienes cuenta? Regístrate</a>
+        </div>
+      </div>
     </div>
   );
 }

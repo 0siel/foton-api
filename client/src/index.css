@@ -50,6 +50,7 @@ body {
   width: 20%;
   height: 100vh;
   border-right: 2px solid #f0f0f0;
+  min-width: 200px;
 }
 
 .NavBar ul {
@@ -81,7 +82,7 @@ body {
 }
 .home-icon {
   align-items: center;
-  margin-top: 6%;
+  margin-top: 19px;
 }
 
 .home-icon img {
@@ -99,7 +100,7 @@ body {
   margin-left: 30px;
   margin-right: auto;
   min-width: 400px;
-  width: 40%;
+  width: 400px;
 }
 .post img {
   width: 400px;
@@ -120,3 +121,162 @@ body {
 .post p {
   margin: 0;
 }
+
+.login-page {
+  background-color: #ad33c9;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+.login-page .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+}
+
+.login-page .content .login-logo {
+  display: flex;
+  align-items: center;
+  font-size: larger;
+  margin-left: auto;
+  margin-right: auto;
+}
+.login-page .content .login-logo img {
+  width: 60px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.login-page .content .login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.login-page .content .login-form label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-left: auto;
+}
+
+.login-page .content .login-form label input {
+  margin-left: 10px;
+  margin-right: auto;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #f0f0f0;
+  border-radius: 5px;
+}
+.login-page .content .login-form button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #f0f0f0;
+  border-radius: 5px;
+  background-color: #ad33c9;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-page .content .login-form button:hover {
+  background-color: #8813a2;
+}
+
+.login-page .content p .error-message {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  color: red;
+  font-size: 16px;
+  margin: 0;
+}
+
+.login-page .content .sign-up-link {
+  margin-top: 10px;
+  margin-bottom: 50px;
+  font-size: 16px;
+  color: #8813a2;
+  cursor: pointer;
+}
+
+.login-page .content #root {
+  min-height: 100vh;
+  min-width: 780px;
+}
+
+/*
+CreatePost form css
+*/
+
+.create-post-form {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+}
+
+.form-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  min-width: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #8813a2;
+  color: white;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #75128c;
+}
+
+/*
+End CreatePost form css
+*/
