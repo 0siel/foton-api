@@ -31,7 +31,7 @@ class UserSerializer(serializers.ModelSerializer):
                 return value
         except get_user_model().DoesNotExist:
             return value
-        raise serializers.ValidationError("Username already exists")
+        raise serializers.ValidationError("El nombre de usuario ya está en uso")
     
     def update(self, instance, validated_data):
         validated_data.pop('email', None)
@@ -42,7 +42,7 @@ class UserSerializer(serializers.ModelSerializer):
             user = get_user_model().objects.get(email=value)
         except get_user_model().DoesNotExist:
             return value
-        raise serializers.ValidationError("El email ya está en uso")
+        raise serializers.ValidationError("El correo ya está en uso")
 
 class PostSerializer(serializers.ModelSerializer):
   user = UserSerializer(read_only=True)

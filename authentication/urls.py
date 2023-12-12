@@ -20,6 +20,8 @@ urlpatterns = [
     # Profile view
     path('user/profile/', 
          ProfileView.as_view(), name='user_profile'),
+    
+    
 ]
 
 if settings.DEBUG:

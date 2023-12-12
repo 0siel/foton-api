@@ -14,11 +14,6 @@ function PostsPage() {
     window.location.href = "/foton/login";
   }
 
-  const api = axios.create({
-    baseURL: "http://localhost:8000/api",
-    withCredentials: true,
-  });
-
   const fetchPosts = useCallback(async () => {
     if (loading) return;
 

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework', #django rest framework
     'rest_framework.authtoken', 
     'django_rest_passwordreset',
+    'coreapi', #coreapi
     #local apps
     'fotonsite',
     'authentication',
@@ -75,8 +76,10 @@ MIDDLEWARE = [
 REST_FRAMEWORK={
   'DEFAULT_AUTHENTICATION_CLASSES': (
     'rest_framework.authentication.TokenAuthentication',
-    'rest_framework.authentication.SessionAuthentication',
+    #'rest_framework.authentication.SessionAuthentication',
   ),
+
+  'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema', #coreapi
   
   #Pagination
   'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',

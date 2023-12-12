@@ -49,7 +49,7 @@ function TopPostsPage() {
         <Navigation />
 
         <div className="posts-container">
-          <h2>Inicio</h2>
+          <h2>Fotos del día</h2>
           <div>
             {posts.map((post) => (
               <Post key={post.id} post={post} />

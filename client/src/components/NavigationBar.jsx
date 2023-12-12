@@ -39,14 +39,12 @@ export function Navigation() {
         Logout button
         */}
         <li className="NavigationItem">
-          <a href="/foton/login" onClick={logout}>
-            <Link to="/foton/login">
-              <div className="home-icon">
-                <img src="\src\assets\logout.png" alt="icon img" />
-              </div>
-              <p>Cerrar sesión</p>
-            </Link>
-          </a>
+          <Link to="/foton/login" onClick={logout}>
+            <div className="home-icon">
+              <img src="\src\assets\logout.png" alt="icon img" />
+            </div>
+            <p>Cerrar sesión</p>
+          </Link>
         </li>
       </ul>
     </nav>

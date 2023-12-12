@@ -6,6 +6,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers
+from rest_framework.documentation import include_docs_urls
 
 # Provee una manera simple de definir una URL
 router = routers.DefaultRouter()
@@ -18,6 +19,7 @@ urlpatterns = [
     #authentification
     path('api/', include('authentication.urls')), #Rutas de autenticación(Registro, Login, Logout, etc)
     path('api/', include(router.urls)), #Incluye las rutas definidas en router
+    path('api/docs/', include_docs_urls(title='Foton API')), #Documentación de la API
 
 ]
 # Si el modo DEBUG esta activado, se añade la ruta de los archivos multimedia
