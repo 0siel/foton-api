@@ -3,6 +3,10 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from .views import PostListCreateView, PostDetailView, like_post, TopPostsView
 #from rest_framework.documentation import include_docs_urls
 
+"""
+Los urlpatterns son las rutas que se van a utilizar en la API, se definen las rutas para los metodos GET, POST, PUT y DELETE.
+Estas rutas prmiten acceder a los posts, crear un nuevo post, ver un post en especifico, dar like a un post y ver los posts con más likes.
+"""
 urlpatterns =[
   #path('posts/create/', views.PostCreate.as_view()),
   path('posts/', PostListCreateView.as_view(), name='post_list_create'),

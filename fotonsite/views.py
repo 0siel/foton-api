@@ -34,26 +34,26 @@ class PostListCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-#View that returns the top 10 most liked posts  
+#View que muestra los posts con más likes  
 class TopPostsView(APIView):
     def get(self, request, format=None):
         posts = Post.get_top_posts_today()
         serializer = PostSerializer(posts, many=True ,context={'request': request})
         return Response(serializer.data)
     
-
+# View para ver, editar y eliminar un post en especifico
 class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated]
 
-
+    # Sobreescribe el metodo get_object para verificar que el usuario que hace la peticion sea el dueño del post
     def get_object(self):
         obj = super().get_object()
         if self.request.method in ['PUT', 'PATCH', 'DELETE'] and obj.user != self.request.user:
             raise PermissionDenied('You do not have permission to edit or delete this post.')
         return obj
-
+    # Sobreescribe el metodo delete para verificar que el usuario que hace la peticion sea el dueño del post
     def delete(self, request, *args, **kwargs):
         # Implementa lógica personalizada si es necesario antes de eliminar
         return self.destroy(request, *args, **kwargs)
