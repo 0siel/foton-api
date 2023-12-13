@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "../components/Header";
 import { Navigation } from "../components/NavigationBar";
 import { Post } from "../components/Post";
@@ -12,11 +12,6 @@ function TopPostsPage() {
   if (!token) {
     window.location.href = "/foton/login";
   }
-
-  const api = axios.create({
-    baseURL: "http://localhost:8000/api",
-    withCredentials: true,
-  });
 
   useEffect(() => {
     const getData = async () => {

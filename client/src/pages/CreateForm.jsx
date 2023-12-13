@@ -82,7 +82,7 @@ const CreatePost = () => {
             </label>
           </div>
           <button type="submit" className="submit-button">
-            Submit
+            Publicar
           </button>
         </form>
       </div>

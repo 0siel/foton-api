@@ -75,7 +75,7 @@ MIDDLEWARE = [
 
 REST_FRAMEWORK={
   'DEFAULT_AUTHENTICATION_CLASSES': (
-    'rest_framework.authentication.TokenAuthentication',
+    'rest_framework.authentication.TokenAuthentication',#configuracion para utilizar la autenticacion por tokens
     #'rest_framework.authentication.SessionAuthentication',
   ),
 

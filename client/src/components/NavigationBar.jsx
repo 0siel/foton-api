@@ -1,3 +1,6 @@
+//Descripcion del componente:
+//Componente que renderiza la barra de navegacion de la aplicacion, incluye los links a las diferentes paginas de la aplicacion
+
 import { Link } from "react-router-dom";
 
 export function Navigation() {
@@ -6,6 +9,7 @@ export function Navigation() {
     localStorage.removeItem("user_id");
   };
 
+  //Renderiza la barra de navegacion incluyendo los links a las diferentes paginas de la aplicacion: Inicio, Fotos del día, Crear y Cerrar sesión
   return (
     <nav className="NavBar">
       <ul>

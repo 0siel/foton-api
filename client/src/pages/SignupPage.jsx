@@ -2,33 +2,38 @@ import { useState } from "react";
 import axios from "axios";
 
 function SignupPage() {
-  const [message, setMessage] = useState("Ingresa tu información"); // [1
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [loginError, setLoginError] = useState(false); // 2
+  const [message, setMessage] = useState("Ingresa tu información"); // Mensaje mostrado al usuario
+  const [email, setEmail] = useState(""); //Campo email
+  const [password, setPassword] = useState(""); //Campo password
+  const [confirmPassword, setConfirmPassword] = useState(""); //Campo confirmar password
+  const [username, setUsername] = useState(""); //Campo username
+  const [loginError, setLoginError] = useState(false); // Indica si ocurrió un error al hacer signup, para mostrar el mensaje de error en color rojo
 
+  // Función que se ejecuta cuando se hace submit en el formulario
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    setLoginError(false);
-    setMessage("Iniciando sesión...");
+    event.preventDefault(); //Evita que se recargue la pagina
+    setLoginError(false); //Cambia el estado de loginError a false para indicar que no hay errores
+    setMessage("Iniciando sesión..."); //Cambia el mensaje mostrado al usuario
 
+    // Validar que las contraseñas coincidan
     if (password !== confirmPassword) {
       setMessage("Las contraseñas no coinciden");
       setLoginError(true);
-      return;
+      return; //Termina la ejecucion de la funcion
     }
 
+    // Hacer petición a la API para hacer el registro del usuario
     try {
       const response = await axios.post(
         "http://localhost:8000/api/auth/signup/",
         {
+          //Se incluyen los datos del usuario en el body de la peticion
           email: email,
           username: username,
           password: password,
         }
       );
+      //En caso de que la peticion sea exitosa, se muestra un mensaje de exito y se redirige al usuario a la pagina de login
       if (response.status === 201) {
         console.log(response.data);
         alert("Cuenta creada exitosamente");
@@ -38,8 +43,9 @@ function SignupPage() {
         window.location.href = "/foton/login";
       }
     } catch (error) {
+      // En caso de que la peticion falle, se muestra un mensaje de error al usuario indicando el error y se imprime el error en la consola
       if (error.response && error.response.status === 400) {
-        // Handle 401 error here
+        // Manejo de errores de validación
         let errorMsg =
           error.response.data.email?.join(", ") ||
           error.response.data.username?.join(", ") ||
@@ -48,7 +54,7 @@ function SignupPage() {
         setMessage(errorMsg);
         setLoginError(true);
       } else {
-        // Handle other errors
+        // Manejo de otros errores de servidor
         setMessage("Error desconocido");
         console.error(error);
       }
@@ -56,6 +62,9 @@ function SignupPage() {
   };
 
   return (
+    // Formulario de login con los campos de email, username y password
+    // Al hacer submit se ejecuta la funcion handleSubmit
+    // Al hacer click en el link de "¿Ya tienes una cuenta? Inicia sesión" se redirige al usuario a la pagina de login
     <div className="login-page">
       <div className="content">
         <div className="login-logo">
@@ -110,7 +119,7 @@ function SignupPage() {
             />
           </label>
 
-          <button type="submit">Login</button>
+          <button type="submit">Registrarme</button>
         </form>
         <div className="sign-up-link">
           <a href="/foton/login">¿Ya tienes una cuenta? Inicia sesión</a>
@@ -119,5 +128,5 @@ function SignupPage() {
     </div>
   );
 }
-
+// Este componente se exporta para poder ser usado en el archivo foton-api/client/src/App.js
 export { SignupPage };

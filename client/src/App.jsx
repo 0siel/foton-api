@@ -1,3 +1,8 @@
+// App.js:
+//Descripcion del componente:
+//Componente que renderiza la aplicacion, incluye las rutas de las diferentes paginas de la aplicacion
+
+//importamos los componentes de react-router-dom para poder usarlos en la aplicacion, BrowserRouter, Routes, Route y Navigate
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { PostsPage } from "./pages/PostsPage";
 import { TopPostsPage } from "./pages/TopPostsPage";
@@ -8,6 +13,7 @@ import { CreatePost } from "./pages/CreateForm";
 function App() {
   return (
     <BrowserRouter>
+      {/* Se envuelve la aplicacion con el componente BrowserRouter para poder usar las rutas en la aplicacion */}
       <Routes>
         <Route path="/foton" element={<Navigate to="/foton/posts" />} />
         <Route path="/foton/login" element={<LoginPage />} />
